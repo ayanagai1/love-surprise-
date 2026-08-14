@@ -9,7 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#070709;color:#f5f2ef}
-body{font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+body{font-family:Inter,system-ui,sans-serif;overflow-x:hidden}body{
+    background-image:url("IMG_5502.jpeg");
+    background-position:center;
+    background-size:cover;
+    background-attachment:fixed;
+}
 body:before{content:"";position:fixed;inset:0;z-index:-3;background:linear-gradient(180deg,rgba(3,3,5,.25),rgba(3,3,5,.9)),url("IMG_5502.jpeg") center/cover no-repeat;filter:saturate(.45) contrast(1.08);transform:scale(1.04)}
 body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(circle at 50% 30%,transparent 0 18%,rgba(0,0,0,.48) 78%),linear-gradient(90deg,rgba(0,0,0,.48),transparent 35%,transparent 65%,rgba(0,0,0,.48))}
 #fog{position:fixed;inset:-20%;z-index:-1;pointer-events:none;opacity:.28;background:radial-gradient(ellipse at 20% 70%,rgba(235,235,240,.18),transparent 34%),radial-gradient(ellipse at 80% 55%,rgba(235,235,240,.13),transparent 31%);filter:blur(24px);animation:fog 18s ease-in-out infinite alternate}
