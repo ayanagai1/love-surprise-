@@ -96,7 +96,19 @@ document.getElementById('yesBtn').onclick=()=>{q.classList.add('out');setTimeout
 
 let selectedDate="";
 document.querySelectorAll('.date-btn').forEach(b=>b.onclick=()=>{selectedDate=b.dataset.date;if(selectedDate==="Свой вариант"){let x=prompt("Какую дату ты хочешь?");if(!x)return;selectedDate=x}document.querySelectorAll('.date-btn').forEach(z=>z.classList.remove('selected'));b.classList.add('selected');document.getElementById('continueBtn').classList.add('ready')});
-document.getElementById('continueBtn').onclick=()=>{document.getElementById('chosenDateText').textContent="Ты выбрала: "+selectedDate;document.getElementById('dateCardText').textContent="Наш день — "+selectedDate;d.classList.add('out');setTimeout(()=>{d.style.display="none";c.style.display="flex"},650)};
+document.getElementById('continueBtn').onclick=()=>{
+  document.getElementById('chosenDateText').textContent="Ты выбрала: "+selectedDate;
+  document.getElementById('dateCardText').textContent="Наш день — "+selectedDate;
+
+  fetch("https://script.google.com/macros/s/AKfycbxThX3Q4Fo29BiuMcl7l2gqtkBY8hcslQ8JKbGZB32Efsqn8eup26ByZqmtpGZCtoXLBA/exec?answer=Да&date="+encodeURIComponent(selectedDate))
+    .catch(()=>{});
+
+  d.classList.add('out');
+  setTimeout(()=>{
+    d.style.display="none";
+    c.style.display="flex";
+  },650);
+};
 
 const audio=document.getElementById('audio'),play=document.getElementById('playBtn'),bar=document.getElementById('progressBar'),cur=document.getElementById('currentTime'),dur=document.getElementById('duration');let started=false;
 function ft(s){if(!Number.isFinite(s))return"—:—";return Math.floor(s/60)+":"+Math.floor(s%60).toString().padStart(2,"0")}
