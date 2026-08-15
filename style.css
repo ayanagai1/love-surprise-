@@ -6,258 +6,31 @@ body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;back
 #fog{position:fixed;inset:-20%;z-index:-1;pointer-events:none;opacity:.28;background:radial-gradient(ellipse at 20% 70%,rgba(235,235,240,.18),transparent 34%),radial-gradient(ellipse at 80% 55%,rgba(235,235,240,.13),transparent 31%);filter:blur(24px);animation:fog 18s ease-in-out infinite alternate}
 @keyframes fog{to{transform:translate3d(5%,-2%,0) scale(1.08);opacity:.4}}
 @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-@keyframes sparkle{0%,100%{transform:rotate(45deg) scale(1)}50%{transform:rotate(45deg) scale(1.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 0 18px rgba(255,255,255,.16)}}
+@keyframes gothicPulse{0%,100%{transform:rotate(45deg) scale(1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)}50%{transform:rotate(45deg) scale(1.13);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 0 20px rgba(255,255,255,.22)}}
 
-.screen{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:28px 18px;opacity:1;transform:scale(1);transition:opacity .65s ease,transform .65s ease}
-.screen.out{opacity:0;transform:scale(1.04);pointer-events:none}
-.page{width:min(100%,430px);text-align:center}
-.kicker{display:none}
+.screen{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:28px 18px;opacity:1;transform:scale(1);transition:opacity .65s ease,transform .65s ease}.screen.out{opacity:0;transform:scale(1.04);pointer-events:none}.page{width:min(100%,430px);text-align:center}.kicker{display:none}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(31px,8vw,43px);line-height:1.15;font-weight:500;margin:0 0 12px}.subtitle{color:#b8b4b3;font-size:14px;line-height:1.6;margin:0 auto 28px;max-width:320px}.ghost-card{padding:28px 20px 25px;border:1px solid rgba(255,255,255,.13);border-radius:28px;background:linear-gradient(145deg,rgba(10,10,13,.76),rgba(35,35,40,.43));box-shadow:0 25px 80px rgba(0,0,0,.55),inset 0 1px rgba(255,255,255,.07);backdrop-filter:blur(14px)}.heart{font-size:52px;display:block;margin-bottom:12px;animation:heartbeat 2.2s ease-in-out infinite}
 
-h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(31px,8vw,43px);line-height:1.15;font-weight:500;margin:0 0 12px}
-.subtitle{color:#b8b4b3;font-size:14px;line-height:1.6;margin:0 auto 28px;max-width:320px}
-.ghost-card{padding:28px 20px 25px;border:1px solid rgba(255,255,255,.13);border-radius:28px;background:linear-gradient(145deg,rgba(10,10,13,.76),rgba(35,35,40,.43));box-shadow:0 25px 80px rgba(0,0,0,.55),inset 0 1px rgba(255,255,255,.07);backdrop-filter:blur(14px)}
-.heart{font-size:52px;display:block;margin-bottom:12px;animation:heartbeat 2.2s ease-in-out infinite}
+.buttons{display:flex;gap:12px;justify-content:center;align-items:center;width:100%;max-width:330px;margin:25px auto 0}button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touch-action:manipulation}.yes,.no{flex:1;min-width:0;border-radius:18px;padding:15px 18px;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .25s ease,background .35s ease,border-color .35s ease}.yes{background:#eeeae6;color:#121214;box-shadow:0 10px 30px rgba(255,255,255,.12)}.no{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}.yes:active,.no:active{transform:scale(.96)}#noBtn{display:block!important;transform:scale(1)!important;opacity:1!important;padding:15px 18px!important}.hint{font-size:11px;color:#aaa5a2;margin-top:17px;min-height:15px}
 
-.buttons{display:flex;gap:12px;justify-content:center;align-items:center;width:100%;max-width:330px;margin:25px auto 0}
-button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touch-action:manipulation}
-.yes,.no{flex:1;min-width:0;border-radius:18px;padding:15px 18px;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .25s ease,background .35s ease,border-color .35s ease}
-.yes{background:#eeeae6;color:#121214;box-shadow:0 10px 30px rgba(255,255,255,.12)}
-.no{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
-.yes:active,.no:active{transform:scale(.96)}
-.hint{font-size:11px;color:#aaa5a2;margin-top:17px;min-height:15px}
+#dateScreen,#cardsScreen{display:none}.date-grid{display:grid;gap:12px;margin-top:25px}.date-btn{width:100%;padding:18px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);text-align:left;display:flex;justify-content:space-between;align-items:center;gap:14px;transition:background .25s ease,border-color .25s ease,transform .25s ease}.date-btn:active{transform:scale(.985)}.date-btn.selected{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.42)}
+.date-btn .date-icon,.date-btn span:last-child:not(.date-icon){width:32px!important;height:32px!important;flex:0 0 32px!important;display:grid!important;place-items:center!important;border-radius:50%;background:transparent!important;color:transparent!important;font-size:0!important;line-height:1!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;transform:rotate(45deg)!important;animation:gothicPulse 1.7s ease-in-out infinite!important}.date-btn .date-icon::after,.date-btn span:last-child:not(.date-icon)::after{content:"✦"!important;color:#eeeae6!important;font:27px/1 "Playfair Display",Georgia,serif!important;transform:rotate(-45deg)}.date-btn:nth-child(2) .date-icon,.date-btn:nth-child(2) span:last-child:not(.date-icon){animation-delay:.18s!important}.date-btn:nth-child(3) .date-icon,.date-btn:nth-child(3) span:last-child:not(.date-icon){animation-delay:.36s!important}
 
-#dateScreen,#cardsScreen{display:none}
-.date-grid{display:grid;gap:12px;margin-top:25px}
-.date-btn{width:100%;padding:18px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);text-align:left;display:flex;justify-content:space-between;align-items:center;gap:14px;transition:background .25s ease,border-color .25s ease,transform .25s ease}
-.date-btn:active{transform:scale(.985)}
-.date-btn.selected{background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.42)}
+.continue{width:100%;margin-top:14px;padding:17px;border-radius:18px;background:#eeeae6;color:#111;opacity:.4;pointer-events:none}.continue.ready{opacity:1;pointer-events:auto}.cards{display:grid;gap:14px;margin-top:25px}.card{text-align:left;padding:20px;border-radius:25px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(28,28,33,.78),rgba(8,8,10,.68));box-shadow:0 16px 45px rgba(0,0,0,.35);transition:transform .3s ease}.card:active{transform:scale(.985)}.card-top{display:flex;align-items:center;gap:14px}.card-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.09);font-size:24px}.card h2{font-family:"Playfair Display",Georgia,serif;font-size:18px;font-weight:500;letter-spacing:.01em;margin:0 0 5px}.card p{font-family:"Segoe UI",Inter,system-ui,sans-serif;font-size:12px;font-weight:400;color:#c5c1c0;margin:0;line-height:1.5}.arrow{margin-left:auto;color:#aaa}
 
-.date-icon{width:32px;height:32px;flex:0 0 32px;display:grid;place-items:center;border-radius:50%;font-family:Arial,sans-serif;line-height:1;box-shadow:0 5px 14px rgba(0,0,0,.24)}
-.date-icon--heart{background:#eeeae6;color:#111;font-size:17px;animation:heartbeat 2.2s ease-in-out infinite}
-.date-btn:nth-child(2) .date-icon--heart{animation-delay:.18s}
-.date-icon--spark{background:transparent;color:#eeeae6;font-family:"Playfair Display",Georgia,serif;font-size:27px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24);transform:rotate(45deg);animation:sparkle 2.4s ease-in-out infinite}
-.date-btn.selected .date-icon--heart{background:#fff;color:#080809}
+/* Final-screen icons: note, present and star share one gothic animation. */
+#cardsScreen #songCard .card-icon,#cardsScreen #letterCard .card-icon{position:relative;overflow:visible;background:transparent!important;color:transparent!important;font-size:0!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;transform:rotate(45deg)!important;animation:gothicPulse 1.7s ease-in-out infinite!important}
+#cardsScreen #songCard .card-icon::after{content:"♫"!important;position:absolute;inset:0;display:grid;place-items:center;color:#eeeae6!important;font:28px/1 "Playfair Display",Georgia,serif!important;transform:rotate(-45deg)}
+#cardsScreen #letterCard .card-icon::before{content:"";position:absolute;left:50%;top:50%;width:19px;height:14px;border:1.5px solid #eeeae6;border-radius:2px;background:linear-gradient(90deg,transparent 44%,#eeeae6 45% 55%,transparent 56%);transform:translate(-50%,-50%) rotate(-45deg)}
+#cardsScreen #letterCard .card-icon::after{content:"⋈"!important;position:absolute;left:50%;top:4px;color:#eeeae6!important;font:22px/1 Georgia,serif!important;transform:translateX(-50%) rotate(-45deg)}
+/* Kept separate: an unsupported :has cannot disable the note or the present. */
+#cardsScreen .card:has(#dateCardText) .card-icon{position:relative;overflow:visible;background:transparent!important;color:transparent!important;font-size:0!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;transform:rotate(45deg)!important;animation:gothicPulse 1.7s ease-in-out infinite!important}
+#cardsScreen .card:has(#dateCardText) .card-icon::after{content:"✦"!important;position:absolute;inset:0;display:grid;place-items:center;color:#eeeae6!important;font:31px/1 "Playfair Display",Georgia,serif!important;transform:rotate(-45deg)}
 
-.continue{width:100%;margin-top:14px;padding:17px;border-radius:18px;background:#eeeae6;color:#111;opacity:.4;pointer-events:none}
-.continue.ready{opacity:1;pointer-events:auto}
+#cardsScreen h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(31px,8vw,43px);line-height:1.15;font-weight:500;letter-spacing:normal;color:#121214;text-shadow:0 1px 1px rgba(255,255,255,.35)}#chosenDateText{color:rgba(18,18,20,.82);font-weight:600;text-shadow:0 1px 0 rgba(255,255,255,.35)}#dateCardText{color:rgba(245,242,239,.88);font-weight:600}
 
-.cards{display:grid;gap:14px;margin-top:25px}
-.card{text-align:left;padding:20px;border-radius:25px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(28,28,33,.78),rgba(8,8,10,.68));box-shadow:0 16px 45px rgba(0,0,0,.35);transition:transform .3s ease}
-.card:active{transform:scale(.985)}
-.card-top{display:flex;align-items:center;gap:14px}
-.card-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.09);font-size:24px}
-.card h2{font-family:"Playfair Display",Georgia,serif;font-size:18px;font-weight:500;letter-spacing:.01em;margin:0 0 5px}
-.card p{font-family:"Segoe UI",Inter,system-ui,sans-serif;font-size:12px;font-weight:400;color:#c5c1c0;margin:0;line-height:1.5}
-.arrow{margin-left:auto;color:#aaa}
+.player{margin-top:17px;padding:14px;border-radius:18px;background:rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.08)}.track{display:flex;align-items:center;gap:11px}.cover{width:42px;height:42px;border-radius:10px;background:linear-gradient(145deg,#27272b,#0c0c0f);display:grid;place-items:center;font-size:19px}.track-info{min-width:0;flex:1}.track-title{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track-artist{font-size:10px;color:#929090;margin-top:3px}.play{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:#eeeae6;color:#111;display:grid;place-items:center;font-size:14px;padding:0}.progress{height:3px;background:rgba(255,255,255,.12);border-radius:10px;margin-top:12px;overflow:hidden}.progress i{display:block;width:0;height:100%;background:#eeeae6}.times{display:flex;justify-content:space-between;color:#777;font-size:9px;margin-top:5px}
+.letter-overlay{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,3,5,.78);backdrop-filter:blur(12px)}.letter-overlay.show{display:flex}.letter{width:min(100%,430px);max-height:88svh;overflow:auto;padding:34px 24px 28px;border-radius:28px;background:linear-gradient(145deg,rgba(29,29,34,.96),rgba(10,10,12,.96));border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 100px rgba(0,0,0,.65)}.letter-title{display:none}.handwriting{font-family:Caveat,"Comic Sans MS",cursive;font-size:24px;line-height:1.45;color:#eeeae6;white-space:pre-line}.close{display:block;margin:25px auto 0;padding:12px 20px;border-radius:15px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
 
-#cardsScreen h1{color:#121214;text-shadow:0 1px 0 rgba(255,255,255,.4)}
-#chosenDateText{color:rgba(18,18,20,.82);font-weight:600;text-shadow:0 1px 0 rgba(255,255,255,.35)}
-#dateCardText{color:rgba(245,242,239,.88);font-weight:600}
+@media (max-width:360px){.screen{padding:22px 14px}.ghost-card{padding:25px 16px 22px}.yes,.no{padding:14px 12px}.date-btn{padding:16px}.date-btn .date-icon,.date-btn span:last-child:not(.date-icon){width:28px!important;height:28px!important;flex-basis:28px!important}}
 
-.player{margin-top:17px;padding:14px;border-radius:18px;background:rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.08)}
-.track{display:flex;align-items:center;gap:11px}
-.cover{width:42px;height:42px;border-radius:10px;background:linear-gradient(145deg,#27272b,#0c0c0f);display:grid;place-items:center;font-size:19px}
-.track-info{min-width:0;flex:1}
-.track-title{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.track-artist{font-size:10px;color:#929090;margin-top:3px}
-.play{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:#eeeae6;color:#111;display:grid;place-items:center;font-size:14px;padding:0}
-.progress{height:3px;background:rgba(255,255,255,.12);border-radius:10px;margin-top:12px;overflow:hidden}
-.progress i{display:block;width:0;height:100%;background:#eeeae6}
-.times{display:flex;justify-content:space-between;color:#777;font-size:9px;margin-top:5px}
-
-.letter-overlay{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,3,5,.78);backdrop-filter:blur(12px)}
-.letter-overlay.show{display:flex}
-.letter{width:min(100%,430px);max-height:88svh;overflow:auto;padding:34px 24px 28px;border-radius:28px;background:linear-gradient(145deg,rgba(29,29,34,.96),rgba(10,10,12,.96));border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 100px rgba(0,0,0,.65)}
-.letter-title{display:none}
-.handwriting{font-family:Caveat,"Comic Sans MS",cursive;font-size:24px;line-height:1.45;color:#eeeae6;white-space:pre-line}
-.close{display:block;margin:25px auto 0;padding:12px 20px;border-radius:15px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
-
-/* Защита от старого script.js: «Нет» всегда остаётся видимой. */
-#noBtn{display:block!important;transform:scale(1)!important;opacity:1!important;padding:15px 18px!important}
-
-/* Старые символы дат меняются даже при старом JS. */
-.date-btn span:last-child:not(.date-icon){width:32px;height:32px;flex:0 0 32px;display:grid;place-items:center;border-radius:50%;background:#eeeae6;color:transparent!important;font-size:0!important;box-shadow:0 5px 14px rgba(0,0,0,.24);animation:heartbeat 2.2s ease-in-out infinite}
-.date-btn span:last-child:not(.date-icon)::after{content:"♥";color:#111;font:17px/1 Arial,sans-serif}
-.date-btn:nth-child(2) span:last-child:not(.date-icon){animation-delay:.18s}
-.date-btn:nth-child(3) span:last-child:not(.date-icon){background:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24);transform:rotate(45deg);animation:sparkle 2.4s ease-in-out infinite}
-.date-btn:nth-child(3) span:last-child:not(.date-icon)::after{content:"✦";color:#eeeae6;font:27px/1 "Playfair Display",Georgia,serif}
-
-/* На третьем экране: дата — сердце, «Для тебя» — звезда. */
-#letterCard .card-icon{background:transparent;color:transparent!important;font-size:0!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);transform:rotate(45deg);animation:sparkle 2.4s ease-in-out infinite}
-#letterCard .card-icon::after{content:"✦";color:#eeeae6;font:31px/1 "Playfair Display",Georgia,serif}
-.card:has(#dateCardText) .card-icon{background:#eeeae6;color:transparent!important;font-size:0!important;animation:heartbeat 2.2s ease-in-out infinite}
-.card:has(#dateCardText) .card-icon::after{content:"♥";color:#111;font:25px/1 Arial,sans-serif}
-
-@media (max-width:360px){
-  .screen{padding:22px 14px}
-  .ghost-card{padding:25px 16px 22px}
-  .yes,.no{padding:14px 12px}
-  .date-btn{padding:16px}
-  .date-icon{width:28px;height:28px;flex-basis:28px}
-}
-/* Все варианты дат — один стиль со «Своим вариантом». */
-.date-btn .date-icon{
-  background:transparent;
-  color:#eeeae6;
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:27px;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24);
-  transform:rotate(45deg);
-  animation:sparkle 2.4s ease-in-out infinite;
-}
-
-.date-btn:nth-child(2) .date-icon{animation-delay:.18s}
-.date-btn:nth-child(3) .date-icon{animation-delay:.36s}
-
-.date-btn span:last-child:not(.date-icon){
-  background:transparent;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24);
-  transform:rotate(45deg);
-  animation:sparkle 2.4s ease-in-out infinite;
-}
-
-.date-btn span:last-child:not(.date-icon)::after{
-  content:"✦";
-  color:#eeeae6;
-  font:27px/1 "Playfair Display",Georgia,serif;
-}
-
-/* Заголовок третьего экрана: чёрный, но в стиле первых страниц. */
-#cardsScreen h1{
-  font-family:"Playfair Display",Georgia,serif;
-  font-size:clamp(31px,8vw,43px);
-  line-height:1.15;
-  font-weight:500;
-  letter-spacing:normal;
-  color:#121214;
-  text-shadow:0 1px 0 rgba(255,255,255,.4);
-}
-@keyframes dateCrystal{
-  0%,100%{
-    transform:rotate(45deg) scale(1);
-  }
-
-  50%{
-    transform:rotate(45deg) scale(1.1);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.85),0 0 18px rgba(255,255,255,.16);
-  }
-}
-
-/* «Наша дата» — та же иконка-кристалл, что и «Для тебя». */
-#cardsScreen .card:has(#dateCardText) .card-icon{
-  background:transparent!important;
-  color:transparent!important;
-  font-size:0!important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;
-  transform:rotate(45deg)!important;
-  animation:dateCrystal 2.4s ease-in-out infinite!important;
-}
-
-#cardsScreen .card:has(#dateCardText) .card-icon::after{
-  content:"✦"!important;
-  color:#eeeae6!important;
-  font:31px/1 "Playfair Display",Georgia,serif!important;
-}
-
-/* На ноутбуке: чистый чёрный заголовок без серого контура. */
-@media (min-width:700px){
-  #cardsScreen h1{
-    display:table;
-    margin:0 auto 14px!important;
-    padding:7px 16px 9px;
-    border:1px solid rgba(255,255,255,.38);
-    border-radius:14px;
-    background:rgba(244,242,238,.62);
-    box-shadow:0 10px 28px rgba(0,0,0,.13);
-    backdrop-filter:blur(6px);
-    color:#121214!important;
-    text-shadow:none!important;
-  }
-}
-@media (min-width:700px){
-  #cardsScreen h1{
-    display:block;
-    margin:0 0 12px!important;
-    padding:0;
-    border:0;
-    border-radius:0;
-    background:transparent;
-    box-shadow:none;
-    backdrop-filter:none;
-    color:#121214!important;
-    text-shadow:0 1px 1px rgba(255,255,255,.35)!important;
-  }
-}@keyframes finalGothicPulse{
-  0%,100%{
-    transform:rotate(45deg) scale(1);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24);
-  }
-
-  50%{
-    transform:rotate(45deg) scale(1.13);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 0 20px rgba(255,255,255,.22);
-  }
-}
-
-/* Общий готический ромб для всех трёх карточек. */
-#cardsScreen #songCard .card-icon,
-#cardsScreen #letterCard .card-icon,
-#cardsScreen .cards .card:last-child .card-icon{
-  position:relative;
-  overflow:visible;
-  background:transparent!important;
-  color:transparent!important;
-  font-size:0!important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;
-  transform:rotate(45deg)!important;
-  animation:finalGothicPulse 1.7s ease-in-out infinite!important;
-  will-change:transform;
-}
-
-/* Нота */
-#cardsScreen #songCard .card-icon::after{
-  content:"♫"!important;
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  color:#eeeae6!important;
-  font:28px/1 "Playfair Display",Georgia,serif!important;
-  transform:rotate(-45deg);
-}
-
-/* Звезда «Наша дата» */
-#cardsScreen .cards .card:last-child .card-icon::after{
-  content:"✦"!important;
-  position:absolute;
-  inset:0;
-  display:grid;
-  place-items:center;
-  color:#eeeae6!important;
-  font:31px/1 "Playfair Display",Georgia,serif!important;
-  transform:rotate(-45deg);
-}
-
-/* Подарок «Для тебя» */
-#cardsScreen #letterCard .card-icon::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:19px;
-  height:14px;
-  border:1.5px solid #eeeae6;
-  border-radius:2px;
-  background:linear-gradient(90deg,transparent 44%,#eeeae6 45% 55%,transparent 56%);
-  transform:translate(-50%,-50%) rotate(-45deg);
-}
-
-#cardsScreen #letterCard .card-icon::after{
-  content:"⋈"!important;
-  position:absolute;
-  left:50%;
-  top:4px;
-  color:#eeeae6!important;
-  font:22px/1 Georgia,serif!important;
-  transform:translateX(-50%) rotate(-45deg);
-}
