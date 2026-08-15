@@ -187,21 +187,22 @@ button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touc
     color:#121214!important;
     text-shadow:0 1px 1px rgba(255,255,255,.35)!important;
   }
-}
-@keyframes gothicIconPulse{
+}@keyframes finalGothicPulse{
   0%,100%{
     transform:rotate(45deg) scale(1);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24);
   }
 
   50%{
-    transform:rotate(45deg) scale(1.1);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.82),0 0 18px rgba(255,255,255,.15);
+    transform:rotate(45deg) scale(1.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 0 20px rgba(255,255,255,.22);
   }
 }
 
+/* Общий готический ромб для всех трёх карточек. */
 #cardsScreen #songCard .card-icon,
 #cardsScreen #letterCard .card-icon,
-#cardsScreen .card:has(#dateCardText) .card-icon{
+#cardsScreen .cards .card:last-child .card-icon{
   position:relative;
   overflow:visible;
   background:transparent!important;
@@ -209,32 +210,35 @@ button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touc
   font-size:0!important;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;
   transform:rotate(45deg)!important;
-  animation:gothicIconPulse 2.4s ease-in-out infinite!important;
+  animation:finalGothicPulse 1.7s ease-in-out infinite!important;
+  will-change:transform;
 }
 
-#cardsScreen #songCard .card-icon::after,
-#cardsScreen .card:has(#dateCardText) .card-icon::after{
+/* Нота */
+#cardsScreen #songCard .card-icon::after{
+  content:"♫"!important;
   position:absolute;
   inset:0;
   display:grid;
   place-items:center;
   color:#eeeae6!important;
-  font-family:"Playfair Display",Georgia,serif!important;
-  line-height:1!important;
+  font:28px/1 "Playfair Display",Georgia,serif!important;
   transform:rotate(-45deg);
 }
 
-#cardsScreen #songCard .card-icon::after{
-  content:"♫"!important;
-  font-size:28px!important;
-}
-
-#cardsScreen .card:has(#dateCardText) .card-icon::after{
+/* Звезда «Наша дата» */
+#cardsScreen .cards .card:last-child .card-icon::after{
   content:"✦"!important;
-  font-size:31px!important;
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#eeeae6!important;
+  font:31px/1 "Playfair Display",Georgia,serif!important;
+  transform:rotate(-45deg);
 }
 
-/* Нарисованный монохромный подарок — без цветного emoji. */
+/* Подарок «Для тебя» */
 #cardsScreen #letterCard .card-icon::before{
   content:"";
   position:absolute;
@@ -256,9 +260,4 @@ button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touc
   color:#eeeae6!important;
   font:22px/1 Georgia,serif!important;
   transform:translateX(-50%) rotate(-45deg);
-}
-
-#cardsScreen #letterCard .card-icon,
-#cardsScreen .card:has(#dateCardText) .card-icon{
-  animation-delay:.18s!important;
 }
