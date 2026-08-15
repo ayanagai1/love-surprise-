@@ -1,7 +1,127 @@
-const q=document.getElementById('questionScreen'),d=document.getElementById('dateScreen'),c=document.getElementById('cardsScreen');
-const no=document.getElementById('noBtn'),hint=document.getElementById('noHint');
+const q=document.getElementById('questionScreen');
+const d=document.getElementById('dateScreen');
+const c=document.getElementById('cardsScreen');
+const no=document.getElementById('noBtn');
+const hint=document.getElementById('noHint');
+
+const iconReset=document.createElement('style');
+
+iconReset.textContent=`
+  #songCard .card-icon::before,#songCard .card-icon::after,
+  #letterCard .card-icon::before,#letterCard .card-icon::after,
+  #cardsScreen .card .card-icon::before,#cardsScreen .card .card-icon::after,
+  .date-btn .date-icon::before,.date-btn .date-icon::after,
+  .date-btn span:last-child::before,.date-btn span:last-child::after{
+    content:none!important;
+    animation:none!important;
+  }
+
+  #songCard .card-icon,#letterCard .card-icon,#cardsScreen .card .card-icon,
+  .date-btn .date-icon,.date-btn span:last-child{
+    animation:none!important;
+  }
+`;
+
+document.head.append(iconReset);
+
+function animateIcon(icon,delay=0){
+  icon.getAnimations().forEach(animation=>animation.cancel());
+  icon.style.transform='rotate(45deg)';
+
+  icon.animate([
+    {
+      transform:'rotate(45deg) scale(1)',
+      boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)'
+    },
+    {
+      transform:'rotate(45deg) scale(1.13)',
+      boxShadow:'inset 0 0 0 1px rgba(255,255,255,.9),0 0 20px rgba(255,255,255,.22)'
+    },
+    {
+      transform:'rotate(45deg) scale(1)',
+      boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)'
+    }
+  ],{
+    duration:1700,
+    delay,
+    iterations:Infinity,
+    easing:'ease-in-out'
+  });
+}
+
+function buildGothicIcon(icon,type,delay=0,size=52){
+  icon.replaceChildren();
+
+  Object.assign(icon.style,{
+    width:`${size}px`,
+    height:`${size}px`,
+    flex:`0 0 ${size}px`,
+    position:'relative',
+    overflow:'visible',
+    display:'grid',
+    placeItems:'center',
+    borderRadius:size===52?'16px':'50%',
+    background:'transparent',
+    color:'#eeeae6',
+    fontSize:'0',
+    lineHeight:'1',
+    boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)'
+  });
+
+  if(type==='gift'){
+    const box=document.createElement('span');
+
+    Object.assign(box.style,{
+      position:'absolute',
+      left:'50%',
+      top:'50%',
+      width:size===52?'19px':'15px',
+      height:size===52?'14px':'11px',
+      border:'1.5px solid #eeeae6',
+      borderRadius:'2px',
+      background:'linear-gradient(90deg,transparent 44%,#eeeae6 45% 55%,transparent 56%)',
+      transform:'translate(-50%,-50%) rotate(-45deg)'
+    });
+
+    const bow=document.createElement('span');
+    bow.textContent='⋈';
+
+    Object.assign(bow.style,{
+      position:'absolute',
+      left:'50%',
+      top:size===52?'4px':'1px',
+      color:'#eeeae6',
+      font:`${size===52?'22px':'17px'}/1 Georgia,serif`,
+      transform:'translateX(-50%) rotate(-45deg)'
+    });
+
+    icon.append(box,bow);
+  }else{
+    const glyph=document.createElement('span');
+    glyph.textContent=type==='music'?'♫':'✦';
+
+    Object.assign(glyph.style,{
+      display:'block',
+      color:'#eeeae6',
+      font:`${type==='music'?(size===52?'28px':'24px'):(size===52?'31px':'27px')}/1 "Playfair Display",Georgia,serif`,
+      transform:'rotate(-45deg)'
+    });
+
+    icon.appendChild(glyph);
+  }
+
+  animateIcon(icon,delay);
+}
+
 let clicks=0;
-const hints=["Ты уверена?","Может, всё-таки да?","Я бы подумал ещё раз…","Может, всё-таки да?","Последний шанс 🖤"];
+
+const hints=[
+  'Ты уверена?',
+  'Может, всё-таки да?',
+  'Я бы подумал ещё раз…',
+  'Может, всё-таки да?',
+  'Последний шанс 🖤'
+];
 
 no.onclick=()=>{
   clicks++;
@@ -12,6 +132,7 @@ no.onclick=()=>{
 
 document.getElementById('yesBtn').onclick=()=>{
   q.classList.add('out');
+
   setTimeout(()=>{
     q.style.display='none';
     d.style.display='flex';
@@ -21,48 +142,13 @@ document.getElementById('yesBtn').onclick=()=>{
 let selectedDate='';
 const dateButtons=[...document.querySelectorAll('.date-btn')];
 
-function setCrystalIcon(icon,delay=0){
-  icon.className='date-icon date-icon--spark';
-  icon.textContent='✦';
-  icon.setAttribute('aria-hidden','true');
-
-  Object.assign(icon.style,{
-    width:'32px',
-    height:'32px',
-    flex:'0 0 32px',
-    display:'grid',
-    placeItems:'center',
-    borderRadius:'50%',
-    background:'transparent',
-    color:'#eeeae6',
-    fontFamily:'"Playfair Display", Georgia, serif',
-    fontSize:'27px',
-    lineHeight:'1',
-    boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
-  });
-
-  icon.animate([
-    {transform:'rotate(45deg) scale(1)'},
-    {transform:'rotate(45deg) scale(1.1)'},
-    {transform:'rotate(45deg) scale(1)'}
-  ],{
-    duration:2400,
-    delay,
-    iterations:Infinity,
-    easing:'ease-in-out'
-  });
-}
-
 dateButtons.forEach((button,index)=>{
-  let icon=button.querySelector('.date-icon');
+  let icon=[...button.children].find(child=>
+    /^[♡♥✎✦]$/.test(child.textContent.trim())
+  );
 
-  if(!icon){
-    const children=[...button.children];
-    icon=children.find(child=>/^[♡♥✎✦]$/.test(child.textContent.trim()));
-
-    if(!icon&&children.length>1){
-      icon=children[children.length-1];
-    }
+  if(!icon&&button.children.length>1){
+    icon=button.lastElementChild;
   }
 
   if(!icon){
@@ -70,7 +156,7 @@ dateButtons.forEach((button,index)=>{
     button.appendChild(icon);
   }
 
-  setCrystalIcon(icon,index*180);
+  buildGothicIcon(icon,'star',index*180,32);
 
   button.onclick=()=>{
     selectedDate=button.dataset.date;
@@ -78,40 +164,27 @@ dateButtons.forEach((button,index)=>{
     if(selectedDate==='Свой вариант'){
       const customDate=prompt('Какую дату ты хочешь?');
       if(!customDate)return;
+
       selectedDate=customDate;
     }
 
-    document.querySelectorAll('.date-btn').forEach(item=>{
-      item.classList.remove('selected');
-    });
-
+    dateButtons.forEach(item=>item.classList.remove('selected'));
     button.classList.add('selected');
     document.getElementById('continueBtn').classList.add('ready');
   };
 });
 
-const dateCard=document.getElementById('dateCardText')?.closest('.card');
-const dateCardIcon=dateCard?.querySelector('.card-icon');
+buildGothicIcon(document.querySelector('#songCard .card-icon'),'music',0,52);
+buildGothicIcon(document.querySelector('#letterCard .card-icon'),'gift',180,52);
 
-if(dateCardIcon){
-  dateCardIcon.className='card-icon card-icon--heart';
-  dateCardIcon.textContent='♥';
-  dateCardIcon.setAttribute('aria-hidden','true');
-}
+const finalCards=[...document.querySelectorAll('#cardsScreen .card')];
 
-const letterCard=document.getElementById('letterCard');
-const letterCardIcon=letterCard?.querySelector('.card-icon');
+const dateCard=
+  finalCards.find(card=>/наша дата/i.test(card.textContent))||
+  finalCards.at(-1);
 
-if(letterCardIcon){
-  setCrystalIcon(letterCardIcon,180);
-
-  Object.assign(letterCardIcon.style,{
-    width:'52px',
-    height:'52px',
-    flex:'0 0 52px',
-    borderRadius:'16px',
-    fontSize:'31px'
-  });
+if(dateCard?.querySelector('.card-icon')){
+  buildGothicIcon(dateCard.querySelector('.card-icon'),'star',360,52);
 }
 
 const cardsTitle=document.querySelector('#cardsScreen h1');
@@ -123,7 +196,11 @@ if(cardsTitle){
     lineHeight:'1.15',
     fontWeight:'500',
     letterSpacing:'normal',
-    color:'#121214'
+    color:'#121214',
+    background:'transparent',
+    border:'0',
+    boxShadow:'none',
+    padding:'0'
   });
 }
 
@@ -153,7 +230,9 @@ let started=false;
 
 function ft(seconds){
   if(!Number.isFinite(seconds))return '—:—';
-  return Math.floor(seconds/60)+':'+Math.floor(seconds%60).toString().padStart(2,'0');
+
+  return Math.floor(seconds/60)+':'+
+    Math.floor(seconds%60).toString().padStart(2,'0');
 }
 
 play.onclick=event=>{
@@ -227,65 +306,3 @@ document.getElementById('letterCard').onclick=()=>{
 document.getElementById('closeLetter').onclick=()=>{
   document.getElementById('letterOverlay').classList.remove('show');
 };
-function applyCrystal(icon,delay=0){
-  icon.textContent='✦';
-
-  Object.assign(icon.style,{
-    width:'52px',
-    height:'52px',
-    flex:'0 0 52px',
-    display:'grid',
-    placeItems:'center',
-    borderRadius:'16px',
-    background:'transparent',
-    color:'#eeeae6',
-    fontFamily:'"Playfair Display", Georgia, serif',
-    fontSize:'31px',
-    lineHeight:'1',
-    boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
-  });
-
-  icon.animate([
-    {transform:'rotate(45deg) scale(1)'},
-    {transform:'rotate(45deg) scale(1.1)'},
-    {transform:'rotate(45deg) scale(1)'}
-  ],{
-    duration:2400,
-    delay,
-    iterations:Infinity,
-    easing:'ease-in-out'
-  });
-}
-
-/* «Наша дата» — та же анимированная иконка-кристалл. */
-const cardsOnLastScreen=[...document.querySelectorAll('#cardsScreen .card')];
-
-const ourDateCard=cardsOnLastScreen.find(card=>
-  /наша дата/i.test(card.textContent)
-);
-
-const ourDateIcon=ourDateCard?.querySelector('.card-icon');
-
-if(ourDateIcon){
-  applyCrystal(ourDateIcon,360);
-}
-
-/* На ноутбуке заголовок остаётся чёрным, но выглядит мягче и ровнее. */
-if(window.matchMedia('(min-width:700px)').matches){
-  const finalTitle=document.querySelector('#cardsScreen h1');
-
-  if(finalTitle){
-    Object.assign(finalTitle.style,{
-      fontFamily:'"Playfair Display", Georgia, serif',
-      fontSize:'40px',
-      lineHeight:'1.15',
-      fontWeight:'500',
-      letterSpacing:'normal',
-      maxWidth:'460px',
-      marginLeft:'auto',
-      marginRight:'auto',
-      marginBottom:'16px',
-      color:'#121214'
-    });
-  }
-}
