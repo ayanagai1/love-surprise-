@@ -1,4 +1,3 @@
-
 const q=document.getElementById('questionScreen'),d=document.getElementById('dateScreen'),c=document.getElementById('cardsScreen');
 const no=document.getElementById('noBtn'),hint=document.getElementById('noHint');
 let clicks=0;
