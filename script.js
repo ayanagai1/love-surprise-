@@ -227,3 +227,65 @@ document.getElementById('letterCard').onclick=()=>{
 document.getElementById('closeLetter').onclick=()=>{
   document.getElementById('letterOverlay').classList.remove('show');
 };
+function applyCrystal(icon,delay=0){
+  icon.textContent='✦';
+
+  Object.assign(icon.style,{
+    width:'52px',
+    height:'52px',
+    flex:'0 0 52px',
+    display:'grid',
+    placeItems:'center',
+    borderRadius:'16px',
+    background:'transparent',
+    color:'#eeeae6',
+    fontFamily:'"Playfair Display", Georgia, serif',
+    fontSize:'31px',
+    lineHeight:'1',
+    boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
+  });
+
+  icon.animate([
+    {transform:'rotate(45deg) scale(1)'},
+    {transform:'rotate(45deg) scale(1.1)'},
+    {transform:'rotate(45deg) scale(1)'}
+  ],{
+    duration:2400,
+    delay,
+    iterations:Infinity,
+    easing:'ease-in-out'
+  });
+}
+
+/* «Наша дата» — та же анимированная иконка-кристалл. */
+const cardsOnLastScreen=[...document.querySelectorAll('#cardsScreen .card')];
+
+const ourDateCard=cardsOnLastScreen.find(card=>
+  /наша дата/i.test(card.textContent)
+);
+
+const ourDateIcon=ourDateCard?.querySelector('.card-icon');
+
+if(ourDateIcon){
+  applyCrystal(ourDateIcon,360);
+}
+
+/* На ноутбуке заголовок остаётся чёрным, но выглядит мягче и ровнее. */
+if(window.matchMedia('(min-width:700px)').matches){
+  const finalTitle=document.querySelector('#cardsScreen h1');
+
+  if(finalTitle){
+    Object.assign(finalTitle.style,{
+      fontFamily:'"Playfair Display", Georgia, serif',
+      fontSize:'40px',
+      lineHeight:'1.15',
+      fontWeight:'500',
+      letterSpacing:'normal',
+      maxWidth:'460px',
+      marginLeft:'auto',
+      marginRight:'auto',
+      marginBottom:'16px',
+      color:'#121214'
+    });
+  }
+}
