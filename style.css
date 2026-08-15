@@ -18,14 +18,57 @@ h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(31px,8vw,43px);l
 
 .continue{width:100%;margin-top:14px;padding:17px;border-radius:18px;background:#eeeae6;color:#111;opacity:.4;pointer-events:none}.continue.ready{opacity:1;pointer-events:auto}.cards{display:grid;gap:14px;margin-top:25px}.card{text-align:left;padding:20px;border-radius:25px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,rgba(28,28,33,.78),rgba(8,8,10,.68));box-shadow:0 16px 45px rgba(0,0,0,.35);transition:transform .3s ease}.card:active{transform:scale(.985)}.card-top{display:flex;align-items:center;gap:14px}.card-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.09);font-size:24px}.card h2{font-family:"Playfair Display",Georgia,serif;font-size:18px;font-weight:500;letter-spacing:.01em;margin:0 0 5px}.card p{font-family:"Segoe UI",Inter,system-ui,sans-serif;font-size:12px;font-weight:400;color:#c5c1c0;margin:0;line-height:1.5}.arrow{margin-left:auto;color:#aaa}
 
-/* Final-screen icons: note, present and star share one gothic animation. */
-#cardsScreen #songCard .card-icon,#cardsScreen #letterCard .card-icon{position:relative;overflow:visible;background:transparent!important;color:transparent!important;font-size:0!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;transform:rotate(45deg)!important;animation:gothicPulse 1.7s ease-in-out infinite!important}
-#cardsScreen #songCard .card-icon::after{content:"♫"!important;position:absolute;inset:0;display:grid;place-items:center;color:#eeeae6!important;font:28px/1 "Playfair Display",Georgia,serif!important;transform:rotate(-45deg)}
-#cardsScreen #letterCard .card-icon::before{content:"";position:absolute;left:50%;top:50%;width:19px;height:14px;border:1.5px solid #eeeae6;border-radius:2px;background:linear-gradient(90deg,transparent 44%,#eeeae6 45% 55%,transparent 56%);transform:translate(-50%,-50%) rotate(-45deg)}
-#cardsScreen #letterCard .card-icon::after{content:"⋈"!important;position:absolute;left:50%;top:4px;color:#eeeae6!important;font:22px/1 Georgia,serif!important;transform:translateX(-50%) rotate(-45deg)}
-/* Kept separate: an unsupported :has cannot disable the note or the present. */
-#cardsScreen .card:has(#dateCardText) .card-icon{position:relative;overflow:visible;background:transparent!important;color:transparent!important;font-size:0!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;transform:rotate(45deg)!important;animation:gothicPulse 1.7s ease-in-out infinite!important}
-#cardsScreen .card:has(#dateCardText) .card-icon::after{content:"✦"!important;position:absolute;inset:0;display:grid;place-items:center;color:#eeeae6!important;font:31px/1 "Playfair Display",Georgia,serif!important;transform:rotate(-45deg)}
+/* ===== GOTHIC ICONS ===== */
+
+#cardsScreen .card-icon,
+.date-btn .date-icon,
+.date-btn span:last-child {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: visible;
+    background: transparent !important;
+    color: #eeeae6;
+    border-radius: 50%;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.45),
+        0 5px 14px rgba(0,0,0,.24);
+    
+    /* ВАЖНО:
+       здесь больше НЕТ animation и transform.
+       Ими полностью управляет JS. */
+}
+
+#cardsScreen .card-icon {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+}
+
+.date-btn .date-icon,
+.date-btn span:last-child {
+    width: 32px !important;
+    height: 32px !important;
+    flex: 0 0 32px !important;
+}
+
+#cardsScreen .card-icon > span,
+.date-btn .date-icon > span,
+.date-btn span:last-child > span {
+    display: block;
+    pointer-events: none;
+}
+
+#cardsScreen .card-icon::before,
+#cardsScreen .card-icon::after,
+.date-btn .date-icon::before,
+.date-btn .date-icon::after,
+.date-btn span:last-child::before,
+.date-btn span:last-child::after {
+    content: none !important;
+    animation: none !important;
+    transform: none !important;
+}
 
 #cardsScreen h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(31px,8vw,43px);line-height:1.15;font-weight:500;letter-spacing:normal;color:#121214;text-shadow:0 1px 1px rgba(255,255,255,.35)}#chosenDateText{color:rgba(18,18,20,.82);font-weight:600;text-shadow:0 1px 0 rgba(255,255,255,.35)}#dateCardText{color:rgba(245,242,239,.88);font-weight:600}
 
