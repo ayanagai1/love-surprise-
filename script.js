@@ -1,17 +1,7 @@
-const q=document.getElementById('questionScreen');
-const d=document.getElementById('dateScreen');
-const c=document.getElementById('cardsScreen');
-const no=document.getElementById('noBtn');
-const hint=document.getElementById('noHint');
-
+const q=document.getElementById('questionScreen'),d=document.getElementById('dateScreen'),c=document.getElementById('cardsScreen');
+const no=document.getElementById('noBtn'),hint=document.getElementById('noHint');
 let clicks=0;
-const hints=[
-  'Ты уверена?',
-  'Может, всё-таки да?',
-  'Я бы подумал ещё раз…',
-  'Может, всё-таки да?',
-  'Последний шанс 🖤'
-];
+const hints=["Ты уверена?","Может, всё-таки да?","Я бы подумал ещё раз…","Может, всё-таки да?","Последний шанс 🖤"];
 
 no.onclick=()=>{
   clicks++;
@@ -31,6 +21,38 @@ document.getElementById('yesBtn').onclick=()=>{
 let selectedDate='';
 const dateButtons=[...document.querySelectorAll('.date-btn')];
 
+function setCrystalIcon(icon,delay=0){
+  icon.className='date-icon date-icon--spark';
+  icon.textContent='✦';
+  icon.setAttribute('aria-hidden','true');
+
+  Object.assign(icon.style,{
+    width:'32px',
+    height:'32px',
+    flex:'0 0 32px',
+    display:'grid',
+    placeItems:'center',
+    borderRadius:'50%',
+    background:'transparent',
+    color:'#eeeae6',
+    fontFamily:'"Playfair Display", Georgia, serif',
+    fontSize:'27px',
+    lineHeight:'1',
+    boxShadow:'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
+  });
+
+  icon.animate([
+    {transform:'rotate(45deg) scale(1)'},
+    {transform:'rotate(45deg) scale(1.1)'},
+    {transform:'rotate(45deg) scale(1)'}
+  ],{
+    duration:2400,
+    delay,
+    iterations:Infinity,
+    easing:'ease-in-out'
+  });
+}
+
 dateButtons.forEach((button,index)=>{
   let icon=button.querySelector('.date-icon');
 
@@ -48,10 +70,7 @@ dateButtons.forEach((button,index)=>{
     button.appendChild(icon);
   }
 
-  const isCustom=index===dateButtons.length-1;
-  icon.className=`date-icon ${isCustom?'date-icon--spark':'date-icon--heart'}`;
-  icon.textContent=isCustom?'✦':'♥';
-  icon.setAttribute('aria-hidden','true');
+  setCrystalIcon(icon,index*180);
 
   button.onclick=()=>{
     selectedDate=button.dataset.date;
@@ -84,9 +103,28 @@ const letterCard=document.getElementById('letterCard');
 const letterCardIcon=letterCard?.querySelector('.card-icon');
 
 if(letterCardIcon){
-  letterCardIcon.className='card-icon card-icon--spark';
-  letterCardIcon.textContent='✦';
-  letterCardIcon.setAttribute('aria-hidden','true');
+  setCrystalIcon(letterCardIcon,180);
+
+  Object.assign(letterCardIcon.style,{
+    width:'52px',
+    height:'52px',
+    flex:'0 0 52px',
+    borderRadius:'16px',
+    fontSize:'31px'
+  });
+}
+
+const cardsTitle=document.querySelector('#cardsScreen h1');
+
+if(cardsTitle){
+  Object.assign(cardsTitle.style,{
+    fontFamily:'"Playfair Display", Georgia, serif',
+    fontSize:'clamp(31px, 8vw, 43px)',
+    lineHeight:'1.15',
+    fontWeight:'500',
+    letterSpacing:'normal',
+    color:'#121214'
+  });
 }
 
 document.getElementById('continueBtn').onclick=()=>{
