@@ -4,25 +4,134 @@ const c=document.getElementById('cardsScreen');
 const no=document.getElementById('noBtn');
 const hint=document.getElementById('noHint');
 
-const iconReset=document.createElement('style');
+function animateIcon(icon, delay = 0) {
+  if (!icon) return;
 
-iconReset.textContent=`
-  #songCard .card-icon::before,#songCard .card-icon::after,
-  #letterCard .card-icon::before,#letterCard .card-icon::after,
-  #cardsScreen .card .card-icon::before,#cardsScreen .card .card-icon::after,
-  .date-btn .date-icon::before,.date-btn .date-icon::after,
-  .date-btn span:last-child::before,.date-btn span:last-child::after{
-    content:none!important;
-    animation:none!important;
+  // Удаляем предыдущие Web Animations API-анимации
+  icon.getAnimations().forEach(animation => animation.cancel());
+
+  icon.style.transform = 'rotate(45deg) scale(1)';
+
+  icon.animate(
+    [
+      {
+        transform: 'rotate(45deg) scale(1)',
+        boxShadow:
+          'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
+      },
+      {
+        transform: 'rotate(45deg) scale(1.12)',
+        boxShadow:
+          'inset 0 0 0 1px rgba(255,255,255,.9), 0 0 20px rgba(255,255,255,.22)'
+      },
+      {
+        transform: 'rotate(45deg) scale(1)',
+        boxShadow:
+          'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
+      }
+    ],
+    {
+      duration: 1700,
+      delay: delay,
+      iterations: Infinity,
+      easing: 'ease-in-out'
+    }
+  );
+}
+
+
+function buildGothicIcon(icon, type, delay = 0, size = 52) {
+  if (!icon) return;
+
+  icon.replaceChildren();
+
+  Object.assign(icon.style, {
+    width: `${size}px`,
+    height: `${size}px`,
+    flex: `0 0 ${size}px`,
+    position: 'relative',
+    display: 'grid',
+    placeItems: 'center',
+    overflow: 'visible',
+    borderRadius: '50%',
+    background: 'transparent',
+    color: '#eeeae6',
+    fontSize: '0',
+    lineHeight: '1',
+    boxShadow:
+      'inset 0 0 0 1px rgba(255,255,255,.45), 0 5px 14px rgba(0,0,0,.24)'
+  });
+
+
+  /*
+    СОЗДАЁМ ВНУТРЕННИЙ СИМВОЛ.
+    Он находится внутри ромба и НЕ зависит
+    от старого CSS.
+  */
+
+  if (type === 'gift') {
+
+    const box = document.createElement('span');
+
+    Object.assign(box.style, {
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      width: size === 52 ? '19px' : '15px',
+      height: size === 52 ? '14px' : '11px',
+      border: '1.5px solid #eeeae6',
+      borderRadius: '2px',
+      background:
+        'linear-gradient(90deg, transparent 44%, #eeeae6 45% 55%, transparent 56%)',
+      transform: 'translate(-50%, -50%) rotate(-45deg)'
+    });
+
+
+    const bow = document.createElement('span');
+
+    bow.textContent = '⋈';
+
+    Object.assign(bow.style, {
+      position: 'absolute',
+      left: '50%',
+      top: size === 52 ? '4px' : '1px',
+      color: '#eeeae6',
+      font: `${size === 52 ? '22px' : '17px'}/1 Georgia, serif`,
+      transform: 'translateX(-50%) rotate(-45deg)',
+      pointerEvents: 'none'
+    });
+
+    icon.append(box, bow);
+
+  } else {
+
+    const glyph = document.createElement('span');
+
+    if (type === 'music') {
+      glyph.textContent = '♫';
+    } else {
+      glyph.textContent = '✦';
+    }
+
+    Object.assign(glyph.style, {
+      display: 'block',
+      color: '#eeeae6',
+      font:
+        `${type === 'music'
+          ? (size === 52 ? '28px' : '24px')
+          : (size === 52 ? '31px' : '27px')
+        }/1 "Playfair Display", Georgia, serif`,
+      transform: 'rotate(-45deg)',
+      pointerEvents: 'none'
+    });
+
+    icon.appendChild(glyph);
   }
 
-  #songCard .card-icon,#letterCard .card-icon,#cardsScreen .card .card-icon,
-  .date-btn .date-icon,.date-btn span:last-child{
-    animation:none!important;
-  }
-`;
 
-document.head.append(iconReset);
+  // Запускаем красивую бесконечную пульсацию
+  animateIcon(icon, delay);
+}
 
 function animateIcon(icon,delay=0){
   icon.getAnimations().forEach(animation=>animation.cancel());
