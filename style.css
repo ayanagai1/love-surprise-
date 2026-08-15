@@ -188,3 +188,77 @@ button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touc
     text-shadow:0 1px 1px rgba(255,255,255,.35)!important;
   }
 }
+@keyframes gothicIconPulse{
+  0%,100%{
+    transform:rotate(45deg) scale(1);
+  }
+
+  50%{
+    transform:rotate(45deg) scale(1.1);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.82),0 0 18px rgba(255,255,255,.15);
+  }
+}
+
+#cardsScreen #songCard .card-icon,
+#cardsScreen #letterCard .card-icon,
+#cardsScreen .card:has(#dateCardText) .card-icon{
+  position:relative;
+  overflow:visible;
+  background:transparent!important;
+  color:transparent!important;
+  font-size:0!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;
+  transform:rotate(45deg)!important;
+  animation:gothicIconPulse 2.4s ease-in-out infinite!important;
+}
+
+#cardsScreen #songCard .card-icon::after,
+#cardsScreen .card:has(#dateCardText) .card-icon::after{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#eeeae6!important;
+  font-family:"Playfair Display",Georgia,serif!important;
+  line-height:1!important;
+  transform:rotate(-45deg);
+}
+
+#cardsScreen #songCard .card-icon::after{
+  content:"♫"!important;
+  font-size:28px!important;
+}
+
+#cardsScreen .card:has(#dateCardText) .card-icon::after{
+  content:"✦"!important;
+  font-size:31px!important;
+}
+
+/* Нарисованный монохромный подарок — без цветного emoji. */
+#cardsScreen #letterCard .card-icon::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:19px;
+  height:14px;
+  border:1.5px solid #eeeae6;
+  border-radius:2px;
+  background:linear-gradient(90deg,transparent 44%,#eeeae6 45% 55%,transparent 56%);
+  transform:translate(-50%,-50%) rotate(-45deg);
+}
+
+#cardsScreen #letterCard .card-icon::after{
+  content:"⋈"!important;
+  position:absolute;
+  left:50%;
+  top:4px;
+  color:#eeeae6!important;
+  font:22px/1 Georgia,serif!important;
+  transform:translateX(-50%) rotate(-45deg);
+}
+
+#cardsScreen #letterCard .card-icon,
+#cardsScreen .card:has(#dateCardText) .card-icon{
+  animation-delay:.18s!important;
+}
