@@ -132,3 +132,45 @@ button{border:0;color:#f5f2ef;font:600 15px Inter,sans-serif;cursor:pointer;touc
   color:#121214;
   text-shadow:0 1px 0 rgba(255,255,255,.4);
 }
+@keyframes dateCrystal{
+  0%,100%{
+    transform:rotate(45deg) scale(1);
+  }
+
+  50%{
+    transform:rotate(45deg) scale(1.1);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.85),0 0 18px rgba(255,255,255,.16);
+  }
+}
+
+/* «Наша дата» — та же иконка-кристалл, что и «Для тебя». */
+#cardsScreen .card:has(#dateCardText) .card-icon{
+  background:transparent!important;
+  color:transparent!important;
+  font-size:0!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 5px 14px rgba(0,0,0,.24)!important;
+  transform:rotate(45deg)!important;
+  animation:dateCrystal 2.4s ease-in-out infinite!important;
+}
+
+#cardsScreen .card:has(#dateCardText) .card-icon::after{
+  content:"✦"!important;
+  color:#eeeae6!important;
+  font:31px/1 "Playfair Display",Georgia,serif!important;
+}
+
+/* На ноутбуке: чистый чёрный заголовок без серого контура. */
+@media (min-width:700px){
+  #cardsScreen h1{
+    display:table;
+    margin:0 auto 14px!important;
+    padding:7px 16px 9px;
+    border:1px solid rgba(255,255,255,.38);
+    border-radius:14px;
+    background:rgba(244,242,238,.62);
+    box-shadow:0 10px 28px rgba(0,0,0,.13);
+    backdrop-filter:blur(6px);
+    color:#121214!important;
+    text-shadow:none!important;
+  }
+}
