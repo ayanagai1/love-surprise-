@@ -1,38 +1,39 @@
 const q=document.getElementById('questionScreen'),d=document.getElementById('dateScreen'),c=document.getElementById('cardsScreen');
 const no=document.getElementById('noBtn'),hint=document.getElementById('noHint');
 let clicks=0;
-const hints=["Ты уверена?","Может, всё-таки да?","Я бы подумал ещё раз…","Нет становится всё меньше.","Последний шанс 🖤"];
+const hints=["Ты уверена?","Может, всё-таки да?","Я бы подумал ещё раз…","Может, всё-таки да?","Последний шанс 🖤"];
 
 no.onclick=()=>{
   clicks++;
-  const scale=Math.max(.82,1-clicks*.05);
-  no.style.transform=`scale(${scale})`;
-  no.style.opacity=Math.max(.88,1-clicks*.03);
+  no.style.transform='scale(1)';
+  no.style.opacity='1';
   hint.textContent=hints[Math.min(clicks-1,hints.length-1)];
   if(clicks>=5){
     no.classList.add('is-last-chance');
-    no.style.transform='scale(.82)';
-    no.style.opacity='.9';
+    no.style.transform='scale(1)';
+    no.style.opacity='1';
   }
 };
 
 document.getElementById('yesBtn').onclick=()=>{q.classList.add('out');setTimeout(()=>{q.style.display='none';d.style.display='flex'},650)};
 
 let selectedDate='';
-document.querySelectorAll('.date-btn').forEach((button,index)=>{
-  const oldIcon=button.lastElementChild;
-  if(oldIcon&&oldIcon.tagName==='SPAN'){
-    oldIcon.textContent='♥';
-    oldIcon.classList.add('date-heart');
-    oldIcon.setAttribute('aria-hidden','true');
-  }else{
-    const heart=document.createElement('span');
-    heart.className='date-heart';
-    heart.textContent='♥';
-    heart.setAttribute('aria-hidden','true');
-    button.appendChild(heart);
+const dateButtons=[...document.querySelectorAll('.date-btn')];
+dateButtons.forEach((button,index)=>{
+  let icon=button.querySelector('.date-icon');
+  if(!icon){
+    const children=[...button.children];
+    icon=children.find(child=>/^[♡♥✎✦]$/.test(child.textContent.trim()));
+    if(!icon&&children.length>1)icon=children[children.length-1];
   }
-  button.style.setProperty('--heart-delay',`${index*.18}s`);
+  if(!icon){
+    icon=document.createElement('span');
+    button.appendChild(icon);
+  }
+  const isCustom=index===dateButtons.length-1;
+  icon.className=`date-icon ${isCustom?'date-icon--spark':'date-icon--heart'}`;
+  icon.textContent=isCustom?'✦':'♥';
+  icon.setAttribute('aria-hidden','true');
   button.onclick=()=>{
     selectedDate=button.dataset.date;
     if(selectedDate==='Свой вариант'){
@@ -45,6 +46,22 @@ document.querySelectorAll('.date-btn').forEach((button,index)=>{
     document.getElementById('continueBtn').classList.add('ready');
   };
 });
+
+const dateCard=document.getElementById('dateCardText')?.closest('.card');
+const dateCardIcon=dateCard?.querySelector('.card-icon');
+if(dateCardIcon){
+  dateCardIcon.className='card-icon card-icon--heart';
+  dateCardIcon.textContent='♥';
+  dateCardIcon.setAttribute('aria-hidden','true');
+}
+
+const letterCard=document.getElementById('letterCard');
+const letterCardIcon=letterCard?.querySelector('.card-icon');
+if(letterCardIcon){
+  letterCardIcon.className='card-icon card-icon--spark';
+  letterCardIcon.textContent='✦';
+  letterCardIcon.setAttribute('aria-hidden','true');
+}
 
 document.getElementById('continueBtn').onclick=()=>{
   document.getElementById('chosenDateText').textContent='Ты выбрала: '+selectedDate;
